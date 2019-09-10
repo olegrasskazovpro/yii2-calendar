@@ -6,9 +6,8 @@ namespace app\controllers;
 
 use app\models\Activity;
 use Yii;
-use yii\web\Controller;
 
-class ActivityController extends Controller
+class ActivityController extends SessionController
 {
 	public function actionIndex()
 	{

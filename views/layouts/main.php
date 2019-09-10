@@ -12,7 +12,6 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
-Yii::$app->seo->saveRefToSession();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

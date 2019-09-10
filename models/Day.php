@@ -15,9 +15,15 @@ class Day extends Model
 	public $dayOfWeek;
 
 	/**
+	 * TRUE if this day is dayoff
+	 * @var
+	 */
+	public $dayOff = false;
+
+	/**
 	 * @var array of associated Events' IDs
 	 */
-	public $events = [];
+	public $activities = [];
 
 	/**
 	 * TRUE if this day blocked with some event or FALSE if it's OK for new events

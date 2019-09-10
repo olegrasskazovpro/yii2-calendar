@@ -3,9 +3,8 @@
 namespace app\controllers;
 
 use app\models\Day;
-use yii\web\Controller;
 
-class DayController extends Controller
+class DayController extends SessionController
 {
 	public function actionIndex()
 	{

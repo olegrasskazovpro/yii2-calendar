@@ -11,9 +11,4 @@ class Seo extends Component
 	{
 		Yii::$app->view->title = $value;
 	}
-
-	public function saveRefToSession()
-	{
-		Yii::$app->session->set('referrer', Yii::$app->request->referrer);
-	}
 }

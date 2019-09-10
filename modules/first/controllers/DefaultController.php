@@ -2,13 +2,13 @@
 
 namespace app\modules\first\controllers;
 
-use yii\web\Controller;
+use app\controllers\SessionController;
 use Yii;
 
 /**
  * Default controller for the `first` module
  */
-class DefaultController extends Controller
+class DefaultController extends SessionController
 {
     /**
      * Renders the index view for the module
