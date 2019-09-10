@@ -61,10 +61,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-    	if (!Yii::$app->session->has('referrer'))
-			{
-				Yii::$app->session->set('referrer', Yii::$app->request->referrer);
-			};
         return $this->render('index');
     }
 
