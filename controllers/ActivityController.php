@@ -11,11 +11,6 @@ class ActivityController extends SessionController
 {
 	public function actionIndex()
 	{
-		return Yii::$app->session->get('page', 'NOT SET');
-	}
-
-	public function actionView()
-	{
 		$activityItem = new Activity();
 
 		$activityItem->title = 'New Activity Heading';
@@ -24,8 +19,23 @@ class ActivityController extends SessionController
 		$activityItem->endDay = '1568562023';
 		$activityItem->endRepeat = '1568389223';
 
-		return $this->render('view', [
+		return $this->render('index', [
 			'model' => $activityItem,
 		]);
+	}
+
+	public function actionEdit()
+	{
+		$model = new Activity();
+		$model->load(Yii::$app->request->post());
+		return $this->render('edit', [
+			'model' => $model,
+		]);
+	}
+
+	public function actionSave()
+	{
+		$model = Yii::$app->request->post();
+		var_dump($model);
 	}
 }

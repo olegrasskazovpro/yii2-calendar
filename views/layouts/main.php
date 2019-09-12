@@ -1,6 +1,6 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 
 /* @var $content string */
 
@@ -8,6 +8,7 @@ use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -42,7 +43,7 @@ AppAsset::register($this);
 			['label' => 'Home', 'url' => ['/site/index']],
 			['label' => 'About', 'url' => ['/site/about']],
 			['label' => 'Contact', 'url' => ['/site/contact']],
-			['label' => 'TestPage', 'url' => ['/site/test-page']],
+			['label' => 'Activity', 'url' => ['/activity/index']],
 			Yii::$app->user->isGuest ? (
 			['label' => 'Login', 'url' => ['/site/login']]
 			) : (
