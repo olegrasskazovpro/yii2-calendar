@@ -4,8 +4,6 @@
  * @var Activity $model
  */
 
-header("Content-type: text/html; charset=utf-8");
-
 use app\models\Activity;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;

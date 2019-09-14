@@ -67,6 +67,11 @@ class Activity extends Model
 	 */
 	public $blockOther = false;
 
+	/**
+	 * @var array of attached files
+	 */
+	public $attachments = [];
+
 	public function rules()
 	{
 		return [
