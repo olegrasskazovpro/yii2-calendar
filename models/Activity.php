@@ -61,8 +61,8 @@ class Activity extends Model
 	public $endRepeat;
 
 	/**
-	 * FALSE if other activities is possible in same days (default) or FALSE if not
-	 * If FALSE days of this event becomes blocked
+	 * FALSE if other activities is possible in same days (default) or TRUE if not
+	 * If TRUE days of this event becomes blocked
 	 * @var boolean
 	 */
 	public $blockOther = false;
@@ -71,16 +71,23 @@ class Activity extends Model
 	 * @var array of attached files
 	 */
 	public $attachments = [];
-
+	
 	public function rules()
 	{
 		return [
 			[['title', 'startDay', 'endDay'], 'required'],
 			[['title'], 'string', 'min' => 5, 'max' => 30],
 			[['description'], 'string', 'max' => 5000],
-			[['id', 'userID', 'startDay', 'endDay', 'repeat', 'endRepeat'], 'string'],
+			[['id', 'userID', 'repeat'], 'string'],
+			[['startDay', 'endDay', 'endRepeat'], 'date', 'format' => 'php:Y-m-d'],
 			[['blockOther'], 'boolean'],
+			[['attachments'], 'file', 'maxFiles' => 5, 'extensions' => 'jpg,png', 'maxSize' => 20971520],
 		];
+	}
+
+	public function getRepeatPeriod()
+	{
+		
 	}
 
 	public function attributeLabels()
@@ -95,6 +102,7 @@ class Activity extends Model
 			'repeat' => 'Повторять',
 			'endRepeat' => 'Повторять до',
 			'blockOther' => 'Блокировать другие события в эти даты',
+			'attachments' => 'Прикрепленные файлы',
 		];
 	}
 }
