@@ -14,17 +14,17 @@ class m190915_091754_create_activities_table extends Migration
 	{
 		$this->createTable('activities', [
 			'id' => $this->primaryKey(),
-			'title' => $this->string()->notNull(),
-			'startDay' => $this->string(),
-			'endDay' => $this->string(),
-			'userID' => $this->integer(),
+			'title' => $this->string()->notNull()->notNull(),
+			'start' => $this->dateTime()->notNull(),
+			'end' => $this->dateTime(),
+			'user_id' => $this->integer()->notNull(),
 			'description' => $this->text(),
-			'repeat' => $this->integer(),
-			'endRepeat' => $this->string(),
-			'blockOther' => $this->boolean(),
-
-//			'attachments' => '', //TODO реляционная связь
+			'repeat' => $this->integer()->defaultValue(1),
+			'end_repeat' => $this->dateTime(),
+			'block_other' => $this->boolean()->defaultValue(false),
 		]);
+
+		$this->createIndex('idx_activities_id', 'activities', 'id');
 	}
 
 	/**
@@ -32,6 +32,7 @@ class m190915_091754_create_activities_table extends Migration
 	 */
 	public function safeDown()
 	{
+		$this->dropIndex('idx_activities_id', 'activities');
 		$this->dropTable('activities');
 	}
 }

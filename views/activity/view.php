@@ -5,6 +5,7 @@
  */
 
 use app\models\Activity;
+use app\models\RepeatPeriods;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use yii\web\View;
@@ -14,63 +15,27 @@ use yii\web\View;
 <?= Html::a('Назад в календарь', ['/activity/index'], ['class' => 'btn btn-success'])?>
 
 <hr>
-<h1><?= $model['title']?></h1>
+<h1><?= $model->title?></h1>
+<p><b>Создал: </b><?= $model->user->username ?></p>
 
-<?php if(date($model['startDay']) == date($model['endDay'])): ?>
-	<p>Событие на <?=date($model['startDay'])?></p>
+<?php if($model->start == $model->end): ?>
+	<p>Событие на <?= $model->startDate ?></p>
 <?php else: ?>
-	<p>Событие c <?=date($model['startDay'])?> по <?=date($model['endDay'])?></p>
+	<p>Событие c <?= $model->startDate ?> по <?= $model->endDate ?></p>
 <?php endif; ?>
 
 
-<?php if ($model['repeat'] != 1): ?>
-	<p>Повторять: <?= $model['repeat'] ?></p>
-	<p>Закончить повторять: <?= ($model['endRepeat']) ? date($model['endRepeat']) : 'Вечно' ?></p>
+<?php if ($model->repeat != 1): ?>
+	<p>Повторять: <?= $model->repeatPeriods->period ?></p>
+	<p>Закончить повторять: <?= ($model->end_repeat) ? $model->end_repeat : 'Никогда' ?></p>
 <?php endif; ?>
 
-<?php if ($model['blockOther']): ?>
+<?php if ($model->block_other): ?>
 	<p>Не позволяет другие события в эти даты</p>
 <?php endif; ?>
 
 <h3>Activity description</h3>
-<div><?=$model['description'] ?></div>
+<div><?=$model->description ?></div>
 <hr>
 
-
-<?php //$form = ActiveForm::begin(['action' => '/activity/edit', 'method' => 'post']) ?>
-<?//= Html::activeHiddenInput($model, 'id')?>
-<?//= Html::activeHiddenInput($model, 'userID')?>
-<?//= Html::activeHiddenInput($model, 'title')?>
-<?//= Html::activeHiddenInput($model, 'description')?>
-<?//= Html::activeHiddenInput($model, 'startDay')?>
-<?//= Html::activeHiddenInput($model, 'endDay')?>
-<?//= Html::activeHiddenInput($model, 'repeat')?>
-<?//= Html::activeHiddenInput($model, 'endRepeat')?>
-<?//= Html::activeHiddenInput($model, 'blockOther')?>
-<?//= Html::submitButton('Edit', ['class' => 'btn btn-primary']) ?>
-<?php //ActiveForm::end() ?>
-
-<?php
-/**
- * <h1><?= $model->title?></h1>
-
-<?php if(date($model->startDay) == date($model->endDay)): ?>
-<p>Событие на <?=date($model->startDay)?></p>
-<?php else: ?>
-<p>Событие c <?=date($model->startDay)?> по <?=date($model->endDay)?></p>
-<?php endif; ?>
-
-
-<?php if (!is_null($model->repeat)): ?>
-<p>Повторять: <?= $model->repeat ?></p>
-<p>Закончить повторять: <?= ($model->endRepeat) ? date($model->endRepeat) : 'Вечно' ?></p>
-<?php endif; ?>
-
-<?php if ($model->blockOther): ?>
-<p>Не позволяет другие события в эти даты</p>
-<?php endif; ?>
-
-<h3><?=$model->getAttributeLabel('description') ?></h3>
-<div><?=$model->description ?></div>
- */
-?>
+<?= Html::a('Редактировать', ["/activity/edit?id={$model->id}"], ['class' => 'btn btn-primary'])?>
