@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\Day;
 
-class DayController extends SessionController
+class DayController extends MyController
 {
 	public function actionIndex()
 	{

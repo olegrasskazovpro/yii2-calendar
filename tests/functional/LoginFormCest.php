@@ -1,6 +1,6 @@
 <?php
 
-use app\models\User;
+use app\models\UserOldModel;
 
 class LoginFormCest
 {
@@ -26,7 +26,7 @@ class LoginFormCest
     // demonstrates `amLoggedInAs` method
     public function internalLoginByInstance(FunctionalTester $I)
     {
-        $I->amLoggedInAs(User::findByUsername('admin'));
+        $I->amLoggedInAs(UserOldModel::findByUsername('admin'));
         $I->amOnPage('/');
         $I->see('Logout (admin)');
     }

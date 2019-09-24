@@ -7,7 +7,7 @@ namespace app\controllers;
 use app\models\UserMessage;
 use Yii;
 
-class MessageController extends SessionController
+class MessageController extends MyController
 {
 	public function actionIndex()
 	{

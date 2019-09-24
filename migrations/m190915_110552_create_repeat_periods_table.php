@@ -14,7 +14,7 @@ class m190915_110552_create_repeat_periods_table extends Migration
 	{
 		$this->createTable('repeat_periods', [
 			'id' => $this->primaryKey(),
-			'name' => $this->string(),
+			'period' => $this->string(),
 		]);
 
 		$this->createIndex(
@@ -25,7 +25,7 @@ class m190915_110552_create_repeat_periods_table extends Migration
 
 		$this->batchInsert(
 			'repeat_periods',
-			['name'],
+			['period'],
 			[
 				['Never'],
 				['Daily'],

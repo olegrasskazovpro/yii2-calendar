@@ -1,12 +1,27 @@
 version: '2'
 services:
   php:
-    image: yiisoftware/yii2-php:7.1-apache
+    image: yiisoftware/yii2-php:7.2-apache
     volumes:
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./tests:/tests:delegated
+      # Framework testing
+      - ./yii2:/yii2:delegated
+      # Application testing
       - ./:/app:delegated
+      # Composer cache
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
     ports:
       - '8000:80'
+    environment:
+      XDEBUG_CONFIG: "remote_host=127.0.0.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+      PHP_ENABLE_XDEBUG: "1"
+      MAX_EXECUTION_TIME: 1000
+      MAX_INPUT_TIME: 1000
+    links:
+      - db
+    depends_on:
+      - db
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
