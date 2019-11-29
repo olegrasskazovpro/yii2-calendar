@@ -11,6 +11,7 @@ return [
 	'formatter' => [
 		'dateFormat' => 'php:Y-m-d',
 		'datetimeFormat' => 'php:Y-m-d H:i:s',
+		'timeZone' => 'Europe/Moscow',
 	],
 	'seo' => [
 		'class' => app\components\Seo::class,

@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\Activity;
-use app\models\LoginForm;
+use app\models\forms\UserForm;
+use app\models\tables\Users;
 use app\models\User;
 use Yii;
+use yii\helpers\StringHelper;
 
 class UserController extends MyController
 {
@@ -16,38 +17,50 @@ class UserController extends MyController
 				'model' => $user,
 			]);
 		} else {
-			$this->redirect('site/login');
+			$this->redirect('/site/login');
 		}
 	}
 
 	public function actionCreate()
 	{
-		$user = new User();
+		$user = new UserForm();
 		return $this->render('create', [
 			'model' => $user,
 		]);
 	}
 
+	public function actionUpdate()
+	{
+		if ($id = Yii::$app->user->identity->getId()){
+			return $this->render('update', [
+				'model' => User::getUserForm($id),
+			]);
+		} else {
+			$this->redirect('/site/login');
+		}
+	}
+
+	/**
+	 * @var $user Users
+	 * @return string
+	 * @throws \Exception
+	 */
 	public function actionSave()
 	{
-		if ($userId = Yii::$app->user->identity->getId()) {
-			$user = User::findOne($userId);
-			$user->load(Yii::$app->request->post());
-			if ($user->registration()) {
-				$this->redirect('/user');
-				Yii::$app->session->setFlash('success', "Добро пожаловать, {$user->username}");
-			} else {
-				return 'Registration failed with errors: ' . $user->errors;
-			}
+		$userData = Yii::$app->request->post();
+		$formName = StringHelper::basename(UserForm::class);
+
+		if ($identity = Yii::$app->user->identity) {
+			$userId = $identity->getId();
+			$user = User::update($userId, $userData, $formName);
 		} else {
-			$user = new User();
-			$user->load(Yii::$app->request->post());
-			if ($user->save()){
-				Yii::$app->session->setFlash('success', 'Пользователь сохранен');
-				$this->redirect('/user');
-			} else {
-				return 'User update failed with errors: ' . $user->errors;
-			};
-		};
+			$user = User::create($userData, $formName);
+		}
+
+		if (!$user->errors){
+			$this->redirect('/user');
+		} else {
+			return 'User update failed with errors: ' . $user->errors;
+		}
 	}
 }

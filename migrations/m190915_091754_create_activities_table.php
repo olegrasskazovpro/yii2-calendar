@@ -17,6 +17,8 @@ class m190915_091754_create_activities_table extends Migration
 			'title' => $this->string()->notNull()->notNull(),
 			'start' => $this->dateTime()->notNull(),
 			'end' => $this->dateTime(),
+			'created_at' => $this->dateTime()->notNull(),
+			'updated_at' => $this->dateTime()->notNull(),
 			'user_id' => $this->integer()->notNull(),
 			'description' => $this->text(),
 			'repeat' => $this->integer()->defaultValue(1),

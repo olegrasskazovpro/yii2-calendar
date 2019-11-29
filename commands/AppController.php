@@ -6,49 +6,35 @@ namespace app\commands;
 use app\models\Activity;
 use app\models\User;
 use yii\console\Controller;
+use Yii;
 
 class AppController extends Controller
 {
 	/**
 	 * Create some test users records in DB
+	 * php yii app/users
 	 */
 	public function actionUsers()
 	{
-		$admin = new User([
-			'username' => 'admin',
-			'email' => 'admin@site.ru',
-			'access_token' => 'test',
-			'created_at' => time(),
-			'updated_at' => time(),
-		]);
+		$users = [
+			'admin',
+			'moderator',
+			'user',
+		];
 
-		$admin->generateAuthKey();
-		$admin->password = '123123'; // аналогично $this->setPassword('123123');
-		$admin->save();
+		foreach ($users as $login) {
+			$user = new User([
+				'username' => $login,
+				'email' => $login . '@site.ru',
+				'access_token' => "{$login}-token",
+				'created_at' => time(),
+				'updated_at' => time(),
+			]);
+			$user->generateAuthKey();
+			$user->password = '123123'; // аналогично $this->setPassword('123123');
 
-		$user = new User([
-			'username' => 'user',
-			'email' => 'user@site.ru',
-			'access_token' => 'test',
-			'created_at' => time(),
-			'updated_at' => time(),
-		]);
-
-		$user->generateAuthKey();
-		$user->password = '123123';
-		$user->save();
-
-		$moderator = new User([
-			'username' => 'moderator',
-			'email' => 'moderator@site.ru',
-			'access_token' => 'test',
-			'created_at' => time(),
-			'updated_at' => time(),
-		]);
-
-		$moderator->generateAuthKey();
-		$moderator->password = '123123';
-		$moderator->save();
+				$user->save();
+		}
 	}
 
 	/**
@@ -56,18 +42,33 @@ class AppController extends Controller
 	 */
 	public function actionActivities()
 	{
-		$activity = new Activity([
-			'title' => 'Событие админа 3',
-			'start' => date('Y-m-d HH:mm:ss', time()),
-			'end' => date('Y-m-d HH:mm:ss', time()),
-			'user_id' => 1,
-			'description' => 'Какое-то описание',
-			'repeat' => '1',
-			'end_repeat' => '',
-			'block_other' => false,
-		]);
+		$titles = [
+			'Событие 1',
+			'Событие 2',
+			'Событие 3',
+			'Событие 4',
+		];
 
-		$activity->save();
-		echo $activity->errors;
+		$day = 1;
+		$today = time();
+
+		foreach ($titles as $title) {
+			$activityDate = date('Y-m-d H:i:s', strtotime("+ {$day} days", $today));
+
+			$activity = new Activity([
+				'title' => $title,
+				'start' => $activityDate,
+				'end' => $activityDate,
+				'user_id' => random_int(1, 3),
+				'description' => 'Какое-то описание' . chunk_split(Yii::$app->security->generateRandomString(64), random_int(10, 20), ' '),
+				'repeat' => '1',
+				'end_repeat' => '',
+				'block_other' => random_int(0,1),
+			]);
+
+			$activity->save();
+
+			$day++;
+		}
 	}
 }

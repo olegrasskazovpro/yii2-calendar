@@ -17,6 +17,10 @@ $config = [
 		'authManager' => [
 			'class' => 'yii\rbac\DbManager',
 		],
+		'formatter' => [
+			'dateFormat' => 'php:Y-m-d',
+			'datetimeFormat' => 'php:Y-m-d H:i:s',
+		],
 		'cache' => [
 			'class' => 'yii\caching\FileCache',
 		],

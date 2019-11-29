@@ -42,8 +42,10 @@ AppAsset::register($this);
 		'items' => [
 			['label' => 'Home', 'url' => ['/site/index']],
 			['label' => 'About', 'url' => ['/site/about']],
+			['label' => 'User', 'url' => ['/user/index']],
 			['label' => 'Contact', 'url' => ['/site/contact']],
-			['label' => 'Activity', 'url' => ['/activity/index']],
+			['label' => 'Календарь', 'url' => ['/calendar']],
+			['label' => 'Мои активности', 'url' => ['/activity/index']],
 			Yii::$app->user->isGuest ? (
 			['label' => 'Login', 'url' => ['/site/login']]
 			) : (

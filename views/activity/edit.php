@@ -13,7 +13,7 @@ use yii\web\View;
 
 ?>
 
-<?= Html::a('Назад в календарь', ['/activity/index'], ['class' => 'btn btn-success']) ?>
+<?= Html::a('Назад в календарь', ['/calendar'], ['class' => 'btn btn-success']) ?>
 
 	<h1><?= ($model->isNewRecord) ? 'Создание задачи' : "Редактирование задачи '{$model->title}'" ?></h1>
 	<p>Создатель: <?= $model->getUsername() ?> </p>
@@ -21,7 +21,7 @@ use yii\web\View;
 
 <?php $form = ActiveForm::begin(['action' => '/activity/save', 'method' => 'post']) ?>
 <?= Html::activeHiddenInput($model, 'id', ['value' => $model->id]) ?>
-<?= Html::activeHiddenInput($model, 'user_id', ['value' => $model->getUserId()]) ?>
+<?php // Html::activeHiddenInput($model, 'user_id', ['value' => $model->getUserId()]) ?>
 <?= $form->field($model, 'title')->textInput(['value' => $model->title]) ?>
 <?= $form->field($model, 'description')->textarea(['value' => $model->description]) ?>
 <?= $form->field($model, 'start')->widget(DateTimePicker::class, [

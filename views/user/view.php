@@ -11,7 +11,7 @@ use yii\widgets\DetailView;
 
 ?>
 
-<?= Html::a('Редактировать', ["/user/update"], ['class' => 'btn btn-primary']) ?>
+<?= Html::a('Редактировать', ["/user/update?id={$model->id}"], ['class' => 'btn btn-primary']) ?>
 
 <hr>
 <?= DetailView::widget([
@@ -20,5 +20,7 @@ use yii\widgets\DetailView;
 		'id',
 		'username',
 		'email',
+		'created_at',
+		'updated_at',
 	],
 ]); ?>
